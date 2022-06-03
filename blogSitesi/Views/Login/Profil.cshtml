@@ -1,0 +1,79 @@
+﻿@model UyeGirisiViewModel
+@{
+    ViewData["Title"] = "Hakkında";
+    var email = Context.Session.GetString("KullaniciEmail");
+}
+
+@section NaviBasliklarProfil{
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Blog" asp-action="Index">Bloglar</a></li>
+
+<li class="nav-item">
+    @if(string.IsNullOrEmpty(email))
+    {
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Login" asp-action="Index">Üye Girişi</a>
+    }
+    else
+    {
+        <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Profil" asp-route-email="@email">Profilim</a>
+        <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Cikis">Çıkış (@email)</a>
+    }
+</li>
+}
+@section siteHeadingProfil{
+<header class="masthead" style="background-image: url('../assets/img/profil-details.png');">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading card">
+                    <p class="text-dark">Profil bilgileri</p>
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="YazarId" />
+                        <div class="m-2 text-black text-start">
+                            <div class="text-center">
+                            <img width="150px" class="border border-2" height="150px"  src="~/images/@Model.ProfilFotoYolu" alt="" />
+                            </div>
+                            <label asp-for="Email">Email</label>
+                            <input asp-for="Email" type="text" class="form-control" value="@Model.Email" readonly/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label asp-for="Ad">Ad</label>
+                            <input asp-for="Ad" type="text" class="form-control" value="@Model.Ad" />
+                            <span asp-validation-for="Ad" class="text-danger"></span>
+                            <label asp-for="Soyad">Soyad</label>
+                            <input asp-for="Soyad" type="text" class="form-control" value="@Model.Soyad" />
+                            <span asp-validation-for="Soyad" class="text-danger"></span>
+                            <label asp-for="KullaniciAdi">Kullanıcı Adı</label>
+                            <input asp-for="KullaniciAdi" type="text" class="form-control" value="@Model.KullaniciAdi" />
+                            <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+                            <label asp-for="Bio" class="mb-1">Hakkında</label>
+                            <div style="text-align: center">
+                            <textarea id="myTextarea" name="Bio" style="width:100%; height:100px">
+</textarea>
+                            </div>
+                            <span aps-validation-for="Bio"></span>
+
+                            <label asp-for="ProfilFoto" class="control-label">Profil Fotoğrafı Seçiniz...</label>
+                            <div class="custom-file">
+                                <input asp-for="ProfilFoto" class="custom-file-input" id="customFile" />
+                                <label class="custom-file-label" for="customFile"></label>
+                            </div>
+                            <span asp-validation-for="ProfilFoto" class="text-danger"></span>
+                        </div>
+                        <button class="mt-2 btn btn-primary rounded-pill float-start mb-2">Kaydet!</button> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+}
+
+
+<script>
+    document.getElementById("myTextarea").value = "@Model.Bio"
+</script>
+
+
+
+
+

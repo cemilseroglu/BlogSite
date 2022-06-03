@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Hakkında";
+    var email = Context.Session.GetString("KullaniciEmail");
+}
+
+@section NaviBasliklarHakkinda{
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Blog" asp-action="Index">Bloglar</a></li>
+
+<li class="nav-item">
+    @if(string.IsNullOrEmpty(email))
+    {
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Login" asp-action="Index">Üye Girişi</a>
+    }
+    else
+    {
+        <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Profil" asp-route-email="@email">Profilim</a>
+        <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Cikis">Çıkış (@email)</a>
+    }
+</li>
+}
+@section siteHeadingHakkinda{
+<header class="masthead" style="background-image: url('../assets/img/hakkinda-bg.jpg');">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Hakkında</h1>
+                    <span class="subheading">BilgeAdam BOOST 6 grubu proje kapmasında yapılmış bir blog projesidir.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+}
+
+<div class="container text-center">
+    <span class="mt-3">İletişim</span>
+    <br />
+    <label class="mt-1">cemseroglu@gmail.com</label>
+</div>
+
+
+
+
+
+

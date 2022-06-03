@@ -1,0 +1,31 @@
+﻿@model GirisYapVm
+@{
+    ViewData["Title"] = "Üye Girişi";
+}
+
+@section NaviBasliklarLogin{
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Blog" asp-action="Index">Bloglar</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Hakkinda">Hakkımızda</a></li>
+}
+
+@section siteHeadingLogin{
+<header class="masthead" style="background-image: url('../assets/img/login-bg.jpg');">
+    <div class="container position-relative">
+        <div class="row gx-4 gx-lg-5 justify-content-start">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <form class="form-control text-start bg-transparent ml-2 border-0" method="post">
+                        <h3 class="text-white">Sitemize sadece E-mail adresiniz ile giriş yapabilirsiniz!</h3>
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" type="email" class="form-control rounded-pill" autocomplete="off" placeholder="E-mail Adresiniz" />
+                        <span asp-validation-for="Email" class="text-danger d-block"></span>
+                        <button class="mt-2 btn btn-primary rounded-pill">Giriş Yap</button> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+}
+

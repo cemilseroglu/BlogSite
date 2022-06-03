@@ -1,0 +1,35 @@
+﻿@model IEnumerable<blogSitesi.Models.Kategori>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Kategoriler</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Kategori</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KategoriAdi)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.KategoriAdi)
+            </td>
+            <td class="text-end">
+                <a asp-action="Edit" asp-route-id="@item.KategoriId" class="btn btn-primary btn-sm">Düzenle</a> 
+                <a asp-action="Details" asp-route-id="@item.KategoriId" class="btn btn-success btn-sm">Detay</a> 
+                <a asp-action="Delete" asp-route-id="@item.KategoriId" class="btn btn-danger btn-sm">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

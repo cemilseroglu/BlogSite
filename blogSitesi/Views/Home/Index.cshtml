@@ -1,0 +1,61 @@
+﻿@model BlogIndexViewModel
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    var email = Context.Session.GetString("KullaniciEmail");
+}
+
+@section NaviBasliklar{
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Blog" asp-action="Index">Bloglar</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Hakkinda">Hakkımızda</a></li>
+<li class="nav-item">
+    @if(string.IsNullOrEmpty(email))
+    {
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Login" asp-action="Index">Üye Girişi</a>
+    }
+    else
+    {
+        <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Profil" asp-route-email="@email">Profilim</a>
+        <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Cikis">Çıkış(@email)</a>
+    }
+</li>
+}
+
+@section siteHeading{
+    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Blog - Jamihtee</h1>
+                    <span class="subheading">Blog Sayfam</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+}
+
+<div class="text-center">
+    <div class="post-preview">
+        @foreach (var item in Model.Makaleler)
+            {
+                <div class="m-auto border-black border mb-2">
+                    <div class="post-preview">
+                        <p class="w-100 post-meta float-end mx-auto">Ortalama okunma süresi : @(item.Icerik.Length/250) dakika</p>
+                    </div>
+                    <img class="justify-content-center mt-2 img-fluid img-thumbnail" src="~/blogimages/@item.ResimYolu" alt="" />
+                    <h3>@item.Baslik</h3>
+                    <p> @item.Icerik.Substring(0,150)...</p>
+                    <div class="post-preview justify-content-center">
+                        <p class="post-meta">
+                            <a href="">@item.YazarKullaniciAdi</a>
+                            tarafından @item.OlusturulmaTarihi tarihinde yayınlandı...
+                        </p>
+                    </div>
+                </div>
+            }
+    </div>
+</div>
+
+

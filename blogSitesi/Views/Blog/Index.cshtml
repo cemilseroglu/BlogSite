@@ -1,0 +1,90 @@
+﻿@model BlogIndexViewModel
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    var email = Context.Session.GetString("KullaniciEmail");
+}
+@{
+    string aktifOlanKategori(int? kategoriId)
+    {
+        if (Model.KategoriId == kategoriId)
+            return "active";
+        else
+            return "";
+    }
+}
+@section NaviBasliklarBloglar{
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Hakkinda">Hakkımızda</a></li>
+    @if(string.IsNullOrEmpty(email))
+    {
+<li class="nav-item">
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Login" asp-action="Index">Üye Girişi</a>
+</li>
+
+    }
+    else
+    {
+<li class="nav-item">  <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Blog" asp-action="BlogYaz" asp-route-email="@email">Blog Yaz!</a></li>
+<li class="nav-item">
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Profil" asp-route-email="@email">Profilim</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Cikis">Çıkış(@email)</a>
+</li>
+    }
+}
+
+
+@section siteHeadingBloglar{
+<header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Bloglar</h1>
+                    <span class="subheading"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+}
+
+<div class="row w-100">
+    <div class="col-md-3">
+        <h4>Kategoriler</h4>
+        <div class="list-group">
+            <a asp-action="Index" class="list-group-item @aktifOlanKategori(null)">Tüm Bloglar</a>
+            @foreach (var item in Model.Kategoriler)
+            {
+                <a class="list-group-item @aktifOlanKategori(@item.KategoriId)" asp-action="Index" asp-route-kategoriId="@item.KategoriId" asp-route-email="@email"> @item.KategoriAdi</a>
+            }
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h4>Bloglar</h4>
+        <div class="row">
+            @foreach (var item in Model.Makaleler)
+            {
+                <div class="col-md-9 col-sm-9 border-black border">
+                    <div class="post-preview">
+                        <p class="post-meta">Ortalama okunma süresi : @(item.Icerik.Length/250) dakika</p>
+                    </div>
+                    <img class="w-100 mt-2" style="height:200px;" src="~/blogimages/@item.ResimYolu" alt="" />
+                    <h3>@item.Baslik</h3>
+                    <p> @item.Icerik.Substring(0,150)...</p>
+                    <div class="post-preview">
+                        <p class="post-meta">
+                            <a href="">@item.YazarKullaniciAdi</a>
+                            tarafından @item.OlusturulmaTarihi tarihinde yayınlandı...
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

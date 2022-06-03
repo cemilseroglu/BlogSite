@@ -1,0 +1,75 @@
+﻿@model UyeGirisiViewModel
+@{
+    ViewData["Title"] = "Üye Ol";
+}
+
+@section NaviBasliklarUyelikGiris{
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Blog" asp-action="Index">Bloglar</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Hakkinda">Hakkımızda</a></li>
+}
+@if (Model.IlkLogin == true && Model.AktifMi == true)
+{
+    @section siteHeadingUyelikGiris{
+<header class="masthead" style="background-image: url('../assets/img/post-bg.jpg');">
+    <div class="container position-relative">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading card">
+                    <p class="text-dark">Herşey çok güzel gidiyor...Hadi biraz sizi tanıyalım!</p>
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="YazarId" />
+                        <div class="m-2 text-black text-start">
+                            <label asp-for="Email">Email</label>
+                            <input asp-for="Email" type="text" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label asp-for="Ad">Ad</label>
+                            <input asp-for="Ad" type="text" class="form-control" />
+                            <span asp-validation-for="Ad" class="text-danger"></span>
+                            <label asp-for="Soyad">Soyad</label>
+                            <input asp-for="Soyad" type="text" class="form-control" />
+                            <span asp-validation-for="Soyad" class="text-danger"></span>
+                            <label asp-for="KullaniciAdi">Kullanıcı Adı</label>
+                            <input asp-for="KullaniciAdi" type="text" class="form-control" />
+                            <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+                            <label asp-for="Bio" class="mb-1">Hakkında</label>
+                            <div style="text-align: center">
+                            <textarea name="Bio" style="width:100%; height:100px">
+</textarea>
+                            </div>
+                            <span aps-validation-for="Bio"></span>
+
+                            <label asp-for="ProfilFoto" class="control-label">Profil Fotoğrafı Seçiniz...</label>
+                            <div class="custom-file">
+                                <input asp-for="ProfilFoto" class="custom-file-input" id="customFile" />
+                                <label class="custom-file-label" for="customFile"></label>
+                            </div>
+                            <span asp-validation-for="ProfilFoto" class="text-danger"></span>
+                        </div>
+                        <button class="mt-2 btn btn-primary rounded-pill float-start mb-2">Kaydet!</button> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+}
+}
+else
+{
+    <header class="masthead" style="background-image: url('../assets/img/post-bg.jpg');">
+        <div class="container position-relative">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading card text-dark">
+                        <p>Merhaba @Model.Email,birşeyler yazmak ister misin?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+}
+
+
+
+

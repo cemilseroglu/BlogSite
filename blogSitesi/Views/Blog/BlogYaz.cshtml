@@ -1,0 +1,71 @@
+﻿@using blogSitesi.Models
+@model YeniBlogViewModel
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    var email = Context.Session.GetString("KullaniciEmail");
+}
+
+@section NaviBasliklarBlogYaz{
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Home" asp-action="Hakkinda">Hakkımızda</a></li>
+<li class="nav-item">
+    @if(string.IsNullOrEmpty(email))
+    {
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Login" asp-action="Index">Üye Girişi</a>
+    }
+    else
+    {
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Profil" asp-route-email="@email">Profilim</a>
+    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Login" asp-action="Cikis">Çıkış(@email)</a>
+    }
+</li>
+}
+
+
+@section siteHeadingBlogYaz{
+<header class="masthead" style="background-image: url('../assets/img/hakkinda-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <span class="subheading">Blog Yaz!</span>
+
+                    <div class="row justify-content-center w-100">
+                        <div class="col-12">
+                            <!--TODO inputlar ilişkilendirilecek-->
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="m-2">
+                                    <label asp-for="KategoriId">Kategori</label>
+                                    <select asp-for="KategoriId" asp-items="ViewBag.Kategoriler" class="form-select">
+                                        <options>
+                                            Seçiniz
+                                        </options>
+                                    </select>
+                                    <span asp-validation-for="KategoriId"></span>
+                                </div>
+                                <div class="m-2">
+                                    <label asp-for="Baslik">Başlık</label>
+                                    <input asp-for="Baslik" type="text" class="form-control" />
+                                    <span asp-validation-for="Baslik"></span>
+                                </div>
+                                <label asp-for="Icerik" class="m-2">İçerik :</label>
+                            <div style="text-align: center">
+                            <textarea id="myTextarea" name="Icerik" style="width:100%; height:100px" class="form-control">
+</textarea>
+                            </div>
+                            <span aps-validation-for="Icerik"></span>
+                                <div class="m-2">
+                                    <label asp-for="Resim">Makale kapağı görseli</label>
+                                    <input asp-for="Resim" type="file" class="form-control" />
+                                    <span asp-validation-for="Resim"></span>
+                                </div>
+                                <button class="btn btn-primary">Kaydet</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+}
